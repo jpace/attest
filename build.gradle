@@ -13,7 +13,7 @@ plugins {
 apply plugin: 'java'
 
 group = 'org.incava'
-version ='0.0.1'
+version ='0.0.2'
 ext {
     pkgName = 'attest'
     pkgDesc = 'Incava Java Development Kit'

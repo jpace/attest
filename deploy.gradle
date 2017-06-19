@@ -34,7 +34,7 @@ bintray {
     publish = true // If version should be auto published after an upload
     configurations = ['archives'] // Use the archives Configuration.
     pkg {
-        repo = 'attest'
+        repo = 'org.incava'
         name = 'attest'
         userOrg = user
         licenses = [pkgLicense]

@@ -8,25 +8,21 @@ import org.junit.Assert;
 
 /**
  * An enhanced set of low level assertions. All assertions return a value for potential chaining.
- * See the blog post I'll probably never write about how to use this.
+ *
+ * @see org.incava.attest.Refutations
  */
 public class Assertions {
     // assertEqual (not assertEquals, for distinction from JUnit methods)
 
-    // deny* == opposite of assert*
-
     // more like Ruby (imperative; message as last parameter)
-    public static <T> T assertEqual(T expected, T actual, String field, Object obj) {
-        String msg = field + ": " + obj;
+    public static <T> T assertEqual(T expected, T actual, String name, Object value) {
+        String msg = name + ": " + String.valueOf(value);
         return assertEqual(expected, actual, msg);
     }
 
     @SuppressWarnings("unchecked")
     public static <T> T assertEqual(T expected, T actual, String msg) {
         // make conditional on running a single test:
-        // tr.Ace.bold("msg", msg);
-        // tr.Ace.bold("expected", expected);
-        // tr.Ace.bold("actual  ", actual);
         if (expected != null && expected.getClass().isArray() && actual != null && actual.getClass().isArray()) {
             assertEqual((T[])expected, (T[])actual, msg);
             return null;        // cannot cast T[] to T, of course
@@ -50,15 +46,11 @@ public class Assertions {
     }
 
     public static <T> T[] assertEqual(T[] expected, T[] actual, String msg) {
-        // tr.Ace.bold("expected", expected);
-        // tr.Ace.bold("actual  ", actual);
         assertEqual(expected == null ? null : Arrays.asList(expected), actual == null ? null : Arrays.asList(actual), msg);
         return actual;
     }
 
     public static <T> T[] assertEqual(T[] expected, T[] actual) {
-        // tr.Ace.bold("expected", expected);
-        // tr.Ace.bold("actual  ", actual);
         assertEqual(expected == null ? null : Arrays.asList(expected), actual == null ? null : Arrays.asList(actual));
         return actual;
     }
@@ -159,8 +151,7 @@ public class Assertions {
         }
         
         return actual;
-    }
-    
+    }    
 
     // compareTo
     
