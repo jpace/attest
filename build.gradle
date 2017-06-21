@@ -13,10 +13,10 @@ plugins {
 apply plugin: 'java'
 
 group = 'org.incava'
-version ='0.0.2'
+version ='0.0.3'
 ext {
     pkgName = 'attest'
-    pkgDesc = 'Incava Java Development Kit'
+    pkgDesc = 'Assertions and parameterized tests'
     githubRepo = 'github.com/jpace/attest'
     pkgLicense = 'Apache-2.0'
     pkgLicenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
@@ -35,7 +35,7 @@ ext {
 apply from: 'deploy.gradle'
 
 dependencies {
-    compile group: 'junit', name: 'junit', version: '4.+'
+    compile group: 'junit', name: 'junit', version: '4.11+'
     compile group: 'pl.pragmatists', name: 'JUnitParams', version: '1.0.6'
 }
 
