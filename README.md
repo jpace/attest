@@ -47,3 +47,44 @@ providing more context than just the values being compared:
     }
 ```
 
+## Hamcrest Context Matcher
+
+Hamcrest is great, as are Parameterized tests. But they don't blend especially well sometimes, since
+the Hamcrest output is limited in scope, and there is no (evident?) way to pass a message along with
+the assertions/matchers, as one can do in plain old JUnit:
+
+```java
+    String userName = "one";
+    String password = "bad";
+    Status status = db.connect(userName, password);
+    assertEquals("userName: " + userName + "; password: " + password, Status.CONNECTED, status);
+```
+
+The closest in Hamcrest, using describedAs, would be:
+
+```java
+    Status status = db.connect(userName, password);
+    assertThat(status, describedAs("userName: " + userName + "; password: " + password, is(Status.CONNECTED));
+```
+
+But that loses the value of the expected value, with the output of the form:
+
+```
+Expected: userName: abc; password: bad
+     but: was <INVALID_PASSWORD>
+```
+
+So ContextMatcher was written, providing more output, yet retaining the original comparison value:
+
+
+```java
+    assertThat(status, withContext(is(Status.CONNECTED), "userName: " + userName + "; password: " + password));
+```
+
+Output:
+
+```
+Expected: is <CONNECTED> (userName: abc; password: bad)
+     but: was <INVALID_PASSWORD>
+
+```

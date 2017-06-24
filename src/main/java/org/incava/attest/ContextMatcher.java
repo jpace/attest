@@ -19,6 +19,16 @@ import org.hamcrest.Matcher;
  * </pre>
  */
 public class ContextMatcher<T> extends BaseMatcher<T> {
+    /**
+     * Creates a context matcher. 
+     */
+    public static <T> ContextMatcher<T> withContext(String context, Matcher<T> matcher) {
+        return new ContextMatcher<T>(matcher, context);
+    }
+    
+    /**
+     * Creates a context matcher. 
+     */
     public static <T> ContextMatcher<T> withContext(Matcher<T> matcher, String context) {
         return new ContextMatcher<T>(matcher, context);
     }
@@ -39,7 +49,7 @@ public class ContextMatcher<T> extends BaseMatcher<T> {
     @Override
     public void describeTo(Description description) {
         matcher.describeTo(description);
-        description.appendText(" (" + context + ") ");
+        description.appendText(" (" + context + ")");
     }
 
     @Override
