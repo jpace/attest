@@ -88,3 +88,18 @@ Expected: is <CONNECTED> (userName: abc; password: bad)
      but: was <INVALID_PASSWORD>
 
 ```
+
+ContextMatcher accepts strings, as above, and also, in the interest of performance and simplicity,
+accepts Messages (org.incava.attest.Message). Using Messages instead of Strings means that
+`toString` is called only when necessary, i.e., when a matcher has failed.
+
+Messages can be created with simple syntax by statically importing org.incava.test.Assertions.msg,
+and `msg` contains either a string, or key/value pairs from which the string is generated.
+
+```java
+    assertThat(status, withContext(is(Status.CONNECTED), msg(userName)));
+```
+
+```java
+    assertThat(status, withContext(is(Status.CONNECTED), msg("userName", userName, "password", password)));
+```

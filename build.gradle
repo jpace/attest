@@ -13,7 +13,7 @@ plugins {
 apply plugin: 'java'
 
 group = 'org.incava'
-version ='0.0.6'
+version ='0.0.7'
 ext {
     pkgName = 'attest'
     pkgDesc = 'Assertions and parameterized tests'

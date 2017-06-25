@@ -191,4 +191,24 @@ public class Assertions {
     public static String message(String k1, Object v1, String k2, Object v2, String k3, Object v3, String k4, Object v4) {
         return message(k1, v1, k2, v2, k3, v3) + "; " + message(k4, v4);
     }
+
+    public static Message msg(String key, Object value) {
+        return Message.of(key, value);
+    }
+
+    public static Message msg(String key, Object[] ary) {
+        return Message.of(key, ary);
+    }
+
+    public static Message msg(String k1, Object v1, String k2, Object v2) {
+        return Message.of(k1, v1, k2, v2);
+    }
+
+    public static Message msg(String k1, Object v1, String k2, Object v2, String k3, Object v3) {
+        return Message.of(k1, v1, k2, v2, k3, v3);
+    }
+
+    public static Message msg(String k1, Object v1, String k2, Object v2, String k3, Object v3, String k4, Object v4) {
+        return Message.of(k1, v1, k2, v2, k3, v3, k4, v4);
+    }
 }
