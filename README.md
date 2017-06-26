@@ -57,14 +57,16 @@ the assertions/matchers, as one can do in plain old JUnit:
     String userName = "one";
     String password = "bad";
     Status status = db.connect(userName, password);
-    assertEquals("userName: " + userName + "; password: " + password, Status.CONNECTED, status);
+    assertEquals("userName: " + userName + "; password: " + password,
+                 Status.CONNECTED, status);
 ```
 
 The closest in Hamcrest, using describedAs, would be:
 
 ```java
     Status status = db.connect(userName, password);
-    assertThat(status, describedAs("userName: " + userName + "; password: " + password, is(Status.CONNECTED));
+    assertThat(status, describedAs("userName: " + userName + "; password: " + password,
+                                   is(Status.CONNECTED));
 ```
 
 But that loses the value of the expected value, with the output of the form:
@@ -78,7 +80,8 @@ So ContextMatcher was written, providing more output, yet retaining the original
 
 
 ```java
-    assertThat(status, withContext(is(Status.CONNECTED), "userName: " + userName + "; password: " + password));
+    assertThat(status, withContext(is(Status.CONNECTED),
+                                   "userName: " + userName + "; password: " + password));
 ```
 
 Output:
@@ -86,7 +89,13 @@ Output:
 ```
 Expected: is <CONNECTED> (userName: abc; password: bad)
      but: was <INVALID_PASSWORD>
+```
 
+The context (string) can be either before or after the associated matcher:
+
+```java
+    assertThat(status, withContext("userName: " + userName + "; password: " + password,
+                                   is(Status.CONNECTED)));
 ```
 
 ContextMatcher accepts strings, as above, and also, in the interest of performance and simplicity,

@@ -16,19 +16,29 @@ public class Assertions {
 
     // more like Ruby (imperative; message as last parameter)
     public static <T> T assertEqual(T expected, T actual, String name, Object value) {
-        String msg = name + ": " + String.valueOf(value);
-        return assertEqual(expected, actual, msg);
+        return assertEqual(expected, actual, Message.of(name, value));
     }
 
     @SuppressWarnings("unchecked")
     public static <T> T assertEqual(T expected, T actual, String msg) {
-        // make conditional on running a single test:
-        if (expected != null && expected.getClass().isArray() && actual != null && actual.getClass().isArray()) {
+        if (areArrays(expected, actual)) {
             assertEqual((T[])expected, (T[])actual, msg);
             return null;        // cannot cast T[] to T, of course
         }
         else {
             Assert.assertEquals(msg, expected, actual);
+            return actual;
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T> T assertEqual(T expected, T actual, Message msg) {
+        if (areArrays(expected, actual)) {
+            assertEqual((T[])expected, (T[])actual, msg);
+            return null;        // cannot cast T[] to T, of course
+        }
+        else {
+            Assert.assertEquals(msg.toString(), expected, actual);
             return actual;
         }
     }
@@ -46,6 +56,11 @@ public class Assertions {
     }
 
     public static <T> T[] assertEqual(T[] expected, T[] actual, String msg) {
+        assertEqual(expected == null ? null : Arrays.asList(expected), actual == null ? null : Arrays.asList(actual), msg);
+        return actual;
+    }
+
+    public static <T> T[] assertEqual(T[] expected, T[] actual, Message msg) {
         assertEqual(expected == null ? null : Arrays.asList(expected), actual == null ? null : Arrays.asList(actual), msg);
         return actual;
     }
@@ -210,5 +225,9 @@ public class Assertions {
 
     public static Message msg(String k1, Object v1, String k2, Object v2, String k3, Object v3, String k4, Object v4) {
         return Message.of(k1, v1, k2, v2, k3, v3, k4, v4);
+    }
+
+    private static <T> boolean areArrays(T x, T y) {
+        return x != null && x.getClass().isArray() && y != null && y.getClass().isArray();
     }
 }
