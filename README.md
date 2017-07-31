@@ -1,6 +1,7 @@
 # Overview
 
-Attest is an extension of JUnit and JUnitParams, modeled somewhat on `test/unit` in Ruby.
+Attest is an extension of JUnit and JUnitParams, modeled somewhat on `test/unit` in Ruby, and adds
+Hamcrest matchers.
 
 # Usage
 
@@ -111,4 +112,18 @@ and `msg` contains either a string, or key/value pairs from which the string is 
 
 ```java
     assertThat(status, withContext(is(Status.CONNECTED), msg("userName", userName, "password", password)));
+```
+
+## Hamcrest Exists Matcher
+
+This is a common idiom:
+
+```java
+    assertThat(object, withContext(msg, objectExpected ? notNullValue() : nullValue()));
+```
+
+So the ExistsMatcher supports a more concise alternative:
+
+```java
+    assertThat(object, exists(objecdExpected));
 ```
