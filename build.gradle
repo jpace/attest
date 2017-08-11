@@ -13,10 +13,10 @@ plugins {
 apply plugin: 'java'
 
 group = 'org.incava'
-version ='0.0.9'
+version ='1.0.0'
 ext {
     pkgName = 'attest'
-    pkgDesc = 'Assertions and parameterized tests'
+    pkgDesc = 'Assertions, parameterized tests, and Hamcrest matchers'
     githubRepo = 'github.com/jpace/attest'
     pkgLicense = 'Apache-2.0'
     pkgLicenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'

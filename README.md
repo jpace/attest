@@ -36,7 +36,7 @@ The `message` method converts key/value pairs to more descriptive output on fail
 providing more context than just the values being compared:
 
 ```java
-    import static org.incava.test.Assertions.message;
+    import static org.incava.attest.Assertions.message;
     // ...
     
     @Test
@@ -103,15 +103,14 @@ ContextMatcher accepts strings, as above, and also, in the interest of performan
 accepts Messages (org.incava.attest.Message). Using Messages instead of Strings means that
 `toString` is called only when necessary, i.e., when a matcher has failed.
 
-Messages can be created with simple syntax by statically importing org.incava.test.Assertions.msg,
-and `msg` contains either a string, or key/value pairs from which the string is generated.
+Messages can be created as key/value pairs, with the static method
+org.incava.attest.Assertions.message. `message` contains either a string, or key/value pairs from
+which the string is generated.
 
 ```java
-    assertThat(status, withContext(is(Status.CONNECTED), msg(userName)));
-```
-
-```java
-    assertThat(status, withContext(is(Status.CONNECTED), msg("userName", userName, "password", password)));
+    int x = 6, y = 7;
+    int z = x * y;
+    assertThat(z, withContext(message("x", x, "y", y), is(42)));
 ```
 
 ## Hamcrest Exists Matcher
@@ -125,5 +124,5 @@ This is a common idiom:
 So the ExistsMatcher supports a more concise alternative:
 
 ```java
-    assertThat(object, exists(objecdExpected));
+    assertThat(object, exists(objectExpected));
 ```
